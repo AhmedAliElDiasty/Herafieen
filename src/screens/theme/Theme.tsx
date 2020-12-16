@@ -5,12 +5,8 @@ import { AppNavigation } from 'navigation';
 import React from 'react';
 import {Text, View} from 'react-native';
 import {NavigationFunctionComponent} from 'react-native-navigation';
-import {useDispatch} from 'react-redux';
-import { onModeChange, useTheme } from 'slices';
-
 
 export const Setting: NavigationFunctionComponent = (props) => {
-  const dispatch = useDispatch();
   return (
     <View>
       <AppHeader title='Setting'/>
@@ -26,7 +22,7 @@ export const Setting: NavigationFunctionComponent = (props) => {
         iconName="theme-light-dark"
         iconType={IconType.materialCommunityIcons}
         componentId={props.componentId}
-        onPress={() => dispatch(onModeChange(false))}
+        onPress={() => AppNavigation.push('favourite')}
       />
     </View>
   );
