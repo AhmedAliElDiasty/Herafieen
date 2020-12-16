@@ -22,14 +22,14 @@ export const AppHeader = (props: Props) => {
     rightItem,
     onBackPress = () => AppNavigation.pop(),
   } = props;
-  const {iconColor, backgroundColor} = useSelector(
+  const {primary, statusBar} = useSelector(
     (state: RootStore) => state.theme.colors,
   );
 
   return (
     <>
-      <SafeAreaView style={{backgroundColor}} />
-      <View style={[styles.container, {backgroundColor}]}>
+      <SafeAreaView style={{backgroundColor:statusBar}} />
+      <View style={[styles.container, {backgroundColor:statusBar}]}>
         <View style={[styles.left, styles.items]}>
           {!hideBack && (
               <AppIconButton
@@ -37,7 +37,7 @@ export const AppHeader = (props: Props) => {
                 name="arrow-back-ios"
                 type={IconType.materialIcons}
                 size={24}
-                color={iconColor}
+                color={primary}
               />
           )}
         </View>

@@ -6,7 +6,7 @@ import {styles} from './style';
 import {LIGHT_FONTS} from 'common/Theme/font/light';
 
 export interface CustomTextStyle extends Omit<TextStyle, 'fontWeight'> {
-  fontWeight?: keyof typeof LIGHT_FONTS;
+  // fontWeight?: keyof typeof LIGHT_FONTS;
 }
 
 interface Props extends Omit<TextProps, 'style'> {
@@ -17,20 +17,20 @@ export const AppText: React.FC<Props> = (props) => {
   const {children, style, ...rest} = props;
   const {
     colors: {textColor},
-    fonts,
+    // fonts,
   } = useSelector((state: RootStore) => state.theme);
 
-  const fontFamily =
-    fonts[StyleSheet.flatten<CustomTextStyle>(style)?.fontWeight || 'Regular'];
+  // const fontFamily =
+  //   fonts[StyleSheet.flatten<CustomTextStyle>(style)?.fontWeight || 'Regular'];
 
   return (
     <Text
       {...rest}
       style={[
         styles.text,
-        {color: textColor},
+        { color: textColor },
+        // {fontFamily, fontWeight: undefined},
         style,
-        {fontFamily, fontWeight: undefined},
       ]}>
       {children}
     </Text>

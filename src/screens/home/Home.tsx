@@ -1,14 +1,18 @@
-import { AppHeader } from 'components/Header/Header';
-import { AppNavigation } from 'navigation';
 import React from 'react';
-import {Button, SafeAreaView, Text, View} from 'react-native';
-import {NavigationFunctionComponent} from 'react-native-navigation';
+import { NavigationFunctionComponent } from 'react-native-navigation';
+import { Menu } from 'components';
+import ScalingDrawer from 'react-native-scaling-drawer';
+import { HomeComponent } from 'components/home/HomeComponent';
 
 export const Home: NavigationFunctionComponent = (props) => {
+  const drawerRef = React.createRef();
   return (
-    <View>
-      <AppHeader title='Home'/>
-      <Text>Homeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</Text>
-    </View>
+    <ScalingDrawer
+      ref={drawerRef}
+      content={<Menu componentId={props.componentId} />}
+      scalingFactor={0.8}
+    >
+      <HomeComponent componentId={props.componentId} drawerRef={drawerRef} />
+    </ScalingDrawer>
   );
 };

@@ -1,12 +1,21 @@
+import { Card } from 'components/card/Card';
+import { AppHeader } from 'components/Header/Header';
 import { AppNavigation } from 'navigation';
 import React from 'react';
 import {Button, SafeAreaView, Text, View} from 'react-native';
-import {NavigationFunctionComponent} from 'react-native-navigation';
+import { ScrollView } from 'react-native-gesture-handler';
+import { NavigationFunctionComponent } from 'react-native-navigation';
+import { styles } from './style'
 
 export const Favourite: NavigationFunctionComponent = (props) => {
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
   return (
-    <View>
-      <Text>Favourite!!!!!!!!!!!!!!!!!!!!!!</Text>
+    <View style={styles.conatiner}>
+      <AppHeader title='Favorite'/>
+      <ScrollView style={styles.conatiner}>
+        {arr.map((item, index) => <Card key={index} componentId={props.componentId} />)}
+      </ScrollView>
     </View>
   );
 };

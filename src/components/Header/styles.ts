@@ -1,5 +1,6 @@
-import { StyleSheet } from "react-native";
-import { APPBAR_HEIGHT } from 'common/utils/responsiveDimmensions';
+import {StyleSheet} from 'react-native';
+import {APPBAR_HEIGHT} from 'common/utils/responsiveDimmensions';
+import { rootStore } from 'store';
 
 export const styles = StyleSheet.create({
   container: {
@@ -7,6 +8,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingHorizontal: 20
   },
   items: {
     flex: 1,
@@ -15,16 +17,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    textAlign: 'center', fontSize: 17
+    textAlign: 'center',
+    fontSize: 17,
+    color:rootStore.getState().theme.colors.primary
   },
   content: {
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   left: {
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   right: {
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   back_icon_container: {
     height: 38,
@@ -32,8 +36,7 @@ export const styles = StyleSheet.create({
     borderRadius: 9.6,
     marginHorizontal: 20,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
-  back_icon: {
-  }
+  back_icon: {},
 });
