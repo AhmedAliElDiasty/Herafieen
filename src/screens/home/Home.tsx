@@ -10,7 +10,7 @@ export const Home: NavigationFunctionComponent = (props) => {
     <ScalingDrawer
       ref={drawerRef}
       content={<Menu componentId={props.componentId} />}
-      scalingFactor={0.8}
+      scalingFactor={0.75}
     >
       <HomeComponent componentId={props.componentId} drawerRef={drawerRef} />
     </ScalingDrawer>

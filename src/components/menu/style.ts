@@ -5,13 +5,13 @@ export const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
     backgroundColor: rootStore.getState().theme.colors.innerDarkShadowColor,
-    paddingVertical: 100,
+    paddingVertical: 40,
   },
   AppNameContainer: {
     paddingLeft: 30,
   },
   AppName: {
-    fontSize: 33,
+    fontSize: 22,
     color:'white'
   },
   itemsContainer: {
