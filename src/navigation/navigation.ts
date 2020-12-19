@@ -51,13 +51,14 @@ export class CustomNavigation {
 
 
   pop = async () => {
+    console.log(">>>>>pop", !this.currentComponentId)
     if (!this.currentComponentId) return;
     //pop stack
     if (this.firstComponentNewInStack == this.currentComponentId) {
-      this.popStack();
+      return this.popStack();
     }
     //pop
-    await Navigation.pop(this.currentComponentId);
+    return await Navigation.pop(this.currentComponentId);
   };
 
   popTo = (popTo: string) => {
@@ -136,13 +137,14 @@ export class CustomNavigation {
 
 
   goBack = () => {
-    try {
-      this.pop();
-    } catch (error) {
-      BackHandler.exitApp();
-    }
-    return null;
-
+    (async () => {
+      try {
+        await this.pop();
+      } catch (error) {
+        BackHandler.exitApp();
+      }
+    })();
+    return true;
   };
 
   popStack = () => {
@@ -160,6 +162,9 @@ export class CustomNavigation {
   }
 
   registerBackHandlerListener = () => {
+    Navigation.events().registerNavigationButtonPressedListener(() => {
+      console.log("navigation button");
+    });
     BackHandler.addEventListener('hardwareBackPress',
       this.goBack
     );
