@@ -2,16 +2,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 
-export const storeTheme = async (value) => {
+export const storeLang = async (value) => {
   try {
-    await AsyncStorage.setItem('@theme', value);
+    await AsyncStorage.setItem('@lang', value);
   } catch (e) {
     // saving error
   }
 };
-export const getTheme = async () => {
+export const getLang = async () => {
   try {
-    const value = await AsyncStorage.getItem('@theme');
+    const value = await AsyncStorage.getItem('@lang');
     if (value !== null) {
       return value;
     }

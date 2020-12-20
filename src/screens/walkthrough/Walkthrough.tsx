@@ -2,6 +2,7 @@ import { AppNavigation } from 'navigation';
 import React, { Component } from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
+import I18n from 'react-native-i18n'
 
 import Carousel from 'react-native-snap-carousel'; // Version can be specified in package.json
 
@@ -62,7 +63,7 @@ export default class Walkthrough extends Component {
         </View>
         <View style={{ marginTop:20,marginHorizontal:40, alignItems:'flex-end'}}>
           <TouchableNativeFeedback onPress={()=>AppNavigation.setRootScreen('home')}>
-          <Text style={{fontSize:20}}>skip</Text>
+            <Text style={{ fontSize: 20 }}>{I18n.t('skip')}</Text>
         </TouchableNativeFeedback>
         </View>
         

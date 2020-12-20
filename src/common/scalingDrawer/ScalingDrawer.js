@@ -34,8 +34,8 @@ class SwipeAbleDrawer extends Component {
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: this._onStartShouldSetPanResponder,
       onMoveShouldSetPanResponder: this._onMoveShouldSetPanResponder,
-      onPanResponderMove: this._onPanResponderMove,
-      onPanResponderRelease: this._onPanResponderRelease
+      // onPanResponderMove: this._onPanResponderMove,
+      // onPanResponderRelease: this._onPanResponderRelease
     });
   }
 
@@ -68,7 +68,7 @@ class SwipeAbleDrawer extends Component {
 
       this.frontRef.setNativeProps({
         style: {
-          transform: [{translateX: this.translateX},
+          transform: [{translateX: this.props.rtl?-this.translateX:this.translateX},
             {scale: this.scale}],
           opacity: this.opacity
         }
