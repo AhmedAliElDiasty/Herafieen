@@ -1,96 +1,121 @@
-import { AppNavigation } from 'navigation';
-import React, { Component } from 'react';
-import { Text, View, Dimensions, StyleSheet } from 'react-native';
-import { TouchableNativeFeedback } from 'react-native-gesture-handler';
-import I18n from 'react-native-i18n'
-
-import Carousel from 'react-native-snap-carousel'; // Version can be specified in package.json
-
-import { scrollInterpolator, animatedStyles } from './animations';
-
-const SLIDER_WIDTH = Dimensions.get('window').width;
-const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.8);
-const ITEM_HEIGHT = Math.round(ITEM_WIDTH * 4 / 2);
-
-const DATA = [];
-for (let i = 0; i < 10; i++) {
-  DATA.push(i)
-}
+import React, { Component } from "react";
+import { SafeAreaView, Platform, Text, View } from "react-native";
+import I18n from "react-native-i18n";
+import styles from "./styles";
+import { connect } from "react-redux";
+import walkthrough1 from "assets/imgs/walkthrough1.png";
+import walkthrough2 from "assets/imgs/walkthrough2.png";
+import walkthrough3 from "assets/imgs/walkthrough3.png";
+import walkthrough4 from "assets/imgs/walkthrough4.png";
+import Swiper from "react-native-swiper";
+import FastImage from "react-native-fast-image";
+import { TouchableNativeFeedback } from "react-native-gesture-handler";
+import { AppNavigation } from "navigation";
 
 export default class Walkthrough extends Component {
+  slides = [
+    {
+      key: "somethun",
 
-  state = {
-    index: 0
-  }
+      title: I18n.t("walkthrough-title-1"),
+      subtitle: I18n.t("walkthrough-subtitle-1"),
+      image: walkthrough1,
+    },
+    {
+      key: "somethun1",
+      title: I18n.t("walkthrough-title-2"),
+      subtitle: I18n.t("walkthrough-subtitle-2"),
+      image: walkthrough2,
+    },
+    {
+      key: "somethun2",
+      title: I18n.t("walkthrough-title-3"),
+      subtitle: I18n.t("walkthrough-subtitle-3"),
+      image: walkthrough3,
+    },
+    {
+      key: "somethun3",
+      title: I18n.t("walkthrough-title-4"),
+      subtitle: I18n.t("walkthrough-subtitle-4"),
+      image: walkthrough4,
+    },
+  ];
 
-  constructor(props) {
-    super(props);
-    this._renderItem = this._renderItem.bind(this)
-  }
-
-  _renderItem({ item }) {
+  _renderItem = (item) => {
     return (
-      <View style={styles.itemContainer}>
-        <Text style={styles.itemLabel}>{`Item ${item}`}</Text>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <View
+
+          style={{ paddingTop: 40, alignItems: 'stretch', paddingHorizontal: 50, backgroundColor: '#EAF3FF' }}
+        >
+          <FastImage
+            source={item.image}
+            resizeMode="contain"
+            style={{ alignSelf: 'stretch', height: '70%' }}
+          />
+        </View>
+        {/* <AppView style={{ marginTop: -70 }} center>
+          <AppText center bold size={6.5} color="primary">
+            {item.title}
+          </AppText>
+          <AppView width={65}>
+            <AppText
+              center
+              size={5.4}
+              marginTop={2}
+              lineHeight={9.5}
+              color="darkgrey"
+            >
+              {item.subtitle}
+            </AppText>
+          </AppView>
+        </AppView> */}
       </View>
     );
-  }
+  };
 
+  renderDotItem = (localIndex, index, total) => {
+    return (
+      <View
+        style={[localIndex === index ? styles.activeDotStyles : styles.dotStyles, { marginTop: 60, marginHorizontal: 10 }]}
+      />
+    );
+  };
   render() {
     return (
-      <View>
-        <Carousel
-          ref={(c) => this.carousel = c}
-          data={DATA}
-          renderItem={this._renderItem}
-          sliderWidth={SLIDER_WIDTH}
-          itemWidth={ITEM_WIDTH}
-          containerCustomStyle={styles.carouselContainer}
-          inactiveSlideShift={0}
-          onSnapToItem={(index) => this.setState({ index })}
-          scrollInterpolator={scrollInterpolator}
-          slideInterpolatedStyle={animatedStyles}
-          useScrollView={true}
-        />
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20, marginHorizontal: 50 }}>
-          {DATA.map((item, index) => {
-            return this.state.index == index ? (
-              <View style={{ backgroundColor: 'black', width: 12, height: 12, borderRadius: 6 }} />
-            ) : (
-                <View style={{ backgroundColor: 'grey', width: 9, height: 9, borderRadius: 4.5   }} />
-              )
-          })}
+      <SafeAreaView style={{ flex: 1 }}>
+        <View style={{ flex: 1, alignItems: 'stretch' }}>
+          <Swiper
+            index={I18n.currentLocale() == 'ar' && Platform.OS === "android" ? 3 : 0}
+            renderPagination={(index, total, context) => {
+              return (
+                <View
+                  style={{
+                    flexDirection:
+                      I18n.currentLocale()=='ar' && Platform.OS === "android"
+                        ? "row-reverse"
+                        : "row",
+                    // paddingBottom: 25,
+                    justifyContent: 'center',
+                    alignItems: 'stretch',
+                  }}
+                >
+                  {this.slides.map((item, localIndex) =>
+                    this.renderDotItem(localIndex, index, total)
+                  )}
+                </View>
+              );
+            }}
+          >
+            {this.slides.map((item) => this._renderItem(item))}
+          </Swiper>
+          <View style={{ marginTop: 20, marginHorizontal: 40, alignItems: 'flex-end' }}>
+            <TouchableNativeFeedback onPress={() => AppNavigation.setRootScreen('home')}>
+              <Text style={{ fontSize: 20 }}>{I18n.t('skip')}</Text>
+            </TouchableNativeFeedback>
+          </View>
         </View>
-        <View style={{ marginTop:20,marginHorizontal:40, alignItems:'flex-end'}}>
-          <TouchableNativeFeedback onPress={()=>AppNavigation.setRootScreen('home')}>
-            <Text style={{ fontSize: 20 }}>{I18n.t('skip')}</Text>
-        </TouchableNativeFeedback>
-        </View>
-        
-      </View>
+      </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  carouselContainer: {
-    marginTop: 50
-  },
-  itemContainer: {
-    width: ITEM_WIDTH,
-    height: ITEM_HEIGHT,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'dodgerblue'
-  },
-  itemLabel: {
-    color: 'white',
-    fontSize: 24
-  },
-  counter: {
-    marginTop: 25,
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center'
-  }
-});
