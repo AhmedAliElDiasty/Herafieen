@@ -5,7 +5,8 @@ import { rootStore } from "store";
 export const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
-    backgroundColor: rootStore.getState().theme.colors.backgroundColor 
+    backgroundColor: rootStore.getState().theme.colors.backgroundColor,
+    paddingBottom:20
   },
   headerContainer: {
     flexDirection: 'row',

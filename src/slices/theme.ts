@@ -13,9 +13,9 @@ interface ThemeState {
 
 const initialState: ThemeState = 
     {
-      isDarkMode: true,
-      colors: DARK_COLORS,
-      fonts: DARK_FONTS,
+      isDarkMode: false,
+      colors: LIGHT_COLORS,
+      fonts: LIGHT_FONTS,
 };
 const themeSlice = createSlice({
   name: 'theme',

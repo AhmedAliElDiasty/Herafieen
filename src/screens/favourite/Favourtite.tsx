@@ -1,22 +1,62 @@
-import { Card } from 'components/card/Card';
-import { AppHeader } from 'components/Header/Header';
-import { AppNavigation } from 'navigation';
-import React from 'react';
-import {Button, SafeAreaView, Text, View} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { useEffect, useRef, useState } from 'react';
+import { View } from 'react-native';
 import { NavigationFunctionComponent } from 'react-native-navigation';
-import { styles } from './style'
+import { styles } from './style';
+import { AppHeader } from 'components/Header/Header';
+import { Card } from 'components/card/Card';
+import { ScrollView } from 'react-native-gesture-handler';
+import { data } from 'json/Data'
+import { getFavorite, storeFavorite } from 'cache/FavoriteCache';
 import I18n from 'react-native-i18n';
 
-export const Favourite: NavigationFunctionComponent = (props) => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+interface Props {
+  componentId: string;
+  drawerRef: React.ReactNode
+}
+
+export const Favourite: NavigationFunctionComponent<Props> = (props: Props) => {
+
+  const [favIDs, setFavIDs] = useState<number[] | null>([])
+  const getFavoriteIDs = async () => {
+    const data = await getFavorite();
+    setFavIDs(data)
+  }
+  useEffect(() => {
+    getFavoriteIDs();
+  }, [])
+
+  const setToFav = async (id: number, bool: boolean) => {
+    
+    let tempFavIds = favIDs;
+    if (bool) {
+      tempFavIds = tempFavIds ? [...tempFavIds, id] : null;
+    } else {
+      tempFavIds = tempFavIds?.filter(tempid => tempid !== id) || [];
+    }
+    setFavIDs(tempFavIds);
+    await storeFavorite(tempFavIds || []);
+  }
 
   return (
     <View style={styles.conatiner}>
       <AppHeader title={ I18n.t('favorite')}/>
       <ScrollView style={styles.conatiner}>
-        {arr.map((item, index) => <Card key={index} componentId={props.componentId} />)}
+        {data.map((item, index) => {
+          
+          return favIDs?.find(ele => ele === item.id) && (
+            <Card
+            key={index}
+            image={item.image}
+            id={item.id}
+            phone={item.phone}
+            isFav={!!favIDs?.find((temp:number) => temp == item.id)}
+            setToFav={setToFav}
+          />)
+        })}
       </ScrollView>
     </View>
+
+
   );
 };
+

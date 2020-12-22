@@ -5,9 +5,10 @@ import ScalingDrawer from 'common/scalingDrawer/ScalingDrawer';
 import { HomeComponent } from 'components/home/HomeComponent';
 import { View } from 'react-native';
 import I18n from "react-native-i18n";
+import SwipeAbleDrawer from 'common/scalingDrawer/ScalingDrawer';
 
 export const Home: NavigationFunctionComponent = (props) => {
-  const drawerRef = React.createRef();
+  const drawerRef = React.createRef<SwipeAbleDrawer>();
   return (
 
 
