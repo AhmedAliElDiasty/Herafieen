@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems:'center',
     height: 70,
-    width: '70%'
+    width: '70%',
   },
   itemText: {
     color: rootStore.getState().theme.colors.primary,

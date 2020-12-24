@@ -2,15 +2,11 @@ import React, { Component } from "react";
 import { SafeAreaView, Platform, Text, View } from "react-native";
 import I18n from "react-native-i18n";
 import styles from "./styles";
-import { connect } from "react-redux";
-import walkthrough1 from "assets/imgs/walkthrough1.png";
-import walkthrough2 from "assets/imgs/walkthrough2.png";
-import walkthrough3 from "assets/imgs/walkthrough3.png";
-import walkthrough4 from "assets/imgs/walkthrough4.png";
 import Swiper from "react-native-swiper";
 import FastImage from "react-native-fast-image";
 import { TouchableNativeFeedback } from "react-native-gesture-handler";
 import { AppNavigation } from "navigation";
+import { changeWalkthrough } from "cache/WalktrhroughCache";
 
 export default class Walkthrough extends Component {
   slides = [
@@ -19,25 +15,25 @@ export default class Walkthrough extends Component {
 
       title: I18n.t("walkthrough-title-1"),
       subtitle: I18n.t("walkthrough-subtitle-1"),
-      image: walkthrough1,
+      image: require("assets/imgs/walkthrough1.png"),
     },
     {
       key: "somethun1",
       title: I18n.t("walkthrough-title-2"),
       subtitle: I18n.t("walkthrough-subtitle-2"),
-      image: walkthrough2,
+      image: require("assets/imgs/walkthrough2.png"),
     },
     {
       key: "somethun2",
       title: I18n.t("walkthrough-title-3"),
       subtitle: I18n.t("walkthrough-subtitle-3"),
-      image: walkthrough3,
+      image: require("assets/imgs/walkthrough3.png"),
     },
     {
       key: "somethun3",
       title: I18n.t("walkthrough-title-4"),
       subtitle: I18n.t("walkthrough-subtitle-4"),
-      image: walkthrough4,
+      image: require("assets/imgs/walkthrough4.png"),
     },
   ];
 
@@ -110,7 +106,10 @@ export default class Walkthrough extends Component {
             {this.slides.map((item) => this._renderItem(item))}
           </Swiper>
           <View style={{ marginTop: 20, marginHorizontal: 40, alignItems: 'flex-end' }}>
-            <TouchableNativeFeedback onPress={() => AppNavigation.setRootScreen('home')}>
+            <TouchableNativeFeedback onPress={async() => {
+              await changeWalkthrough(true);
+              AppNavigation.setRootScreen('home')
+            }}>
               <Text style={{ fontSize: 20 }}>{I18n.t('skip')}</Text>
             </TouchableNativeFeedback>
           </View>

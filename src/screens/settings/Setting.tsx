@@ -48,14 +48,13 @@ export const Setting: NavigationFunctionComponent = (props) => {
           getTheme().then(value => {
             if (value == 'DARK_MODE') {
               storeTheme('LIGHT_MODE');
-              onModeChange(false)
             } else {
-              storeTheme('DARK_MODE')
-              onModeChange(true)  }
+            storeTheme('DARK_MODE')
+            }
           })
-          // setTimeout(() => {
-          //   RNRestart.Restart();
-          // }, 2000);
+          setTimeout(() => {
+            RNRestart.Restart();
+          }, 2000);
         }}
       />
     </View>

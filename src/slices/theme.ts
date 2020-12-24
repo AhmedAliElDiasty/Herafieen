@@ -22,9 +22,7 @@ const themeSlice = createSlice({
   initialState,
   reducers: {
     onModeChange(state, isDarkMode: PayloadAction<boolean>) {
-      console.log('jjjjjjjjjjjjjj', isDarkMode, state.isDarkMode);
-
-      if (isDarkMode) {
+      if (isDarkMode.payload) {        
         state.isDarkMode = true;
         state.colors = DARK_COLORS;
         state.fonts = DARK_FONTS;

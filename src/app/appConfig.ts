@@ -13,6 +13,8 @@ export const appConfig = async () => {
   registerScreens();
 
   const theme = await getTheme();
+  console.log('tttttttttttttttttttttt',theme);
+  
   rootStore.dispatch(theme === 'DARK_MODE' ? onModeChange(true) : onModeChange(false));
   const fav = await getFavorite();
   if (!fav) {
